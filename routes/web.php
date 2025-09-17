@@ -18,9 +18,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'verified'])->group(function() {
-    Route::get('blabs', [BlabController::class, 'index'])->name('blabs.index');
-    Route::post('blabs', [BlabController::class, 'store'])->name('blabs.store');
-});
+// Route::middleware(['auth', 'verified'])->group(function() {
+//     Route::get('blabs', [BlabController::class, 'index'])->name('blabs.index');
+//     Route::post('blabs', [BlabController::class, 'store'])->name('blabs.store');
+// });
+
+Route::resource('blabs', [BlabController::class])
+    ->only(['index', 'store'])
+    ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
