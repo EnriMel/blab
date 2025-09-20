@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Blab;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class BlabController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-       
+        return view('blabs.index');
     }
 
     /**
@@ -20,7 +21,7 @@ class BlabController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -28,7 +29,7 @@ class BlabController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
@@ -36,7 +37,7 @@ class BlabController extends Controller
      */
     public function show(Blab $blab)
     {
-        //
+        
     }
 
     /**
@@ -44,7 +45,7 @@ class BlabController extends Controller
      */
     public function edit(Blab $blab)
     {
-        //
+        
     }
 
     /**
@@ -52,7 +53,7 @@ class BlabController extends Controller
      */
     public function update(Request $request, Blab $blab)
     {
-        //
+        
     }
 
     /**
@@ -60,6 +61,6 @@ class BlabController extends Controller
      */
     public function destroy(Blab $blab)
     {
-        //
+        
     }
 }
