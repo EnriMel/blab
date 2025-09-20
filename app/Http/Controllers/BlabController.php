@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Blab;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Symfony\Contracts\Service\Attribute\Required;
+use Illuminate\Http\RedirectResponse;
 
 class BlabController extends Controller
 {
@@ -27,9 +29,15 @@ class BlabController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request):RedirectResponse
     {
-        dd($request->all());
+        $validatedData = $request->validate([
+            'message' => 'required|string|max:255'
+        ]);
+
+        $request->user()->blabs()->create($validatedData);
+
+        return redirect(route('blabs.index'));
     }
 
     /**
