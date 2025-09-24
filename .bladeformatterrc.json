@@ -2,7 +2,7 @@
     "indentSize": 4,
     "wrapAttributes": "auto",
     "wrapAttributesMinAttrs": 2,
-    "wrapLineLength": 80,
+    "wrapLineLength": 90,
     "endWithNewLine": true,
     "noMultipleEmptyLines": false,
     "useTabs": false,
