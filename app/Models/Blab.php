@@ -9,4 +9,8 @@ class Blab extends Model
    protected $fillable = [
     'message',
    ];
+
+   public function user() {
+      $this->belongsTo(User::class);
+   }
 }
