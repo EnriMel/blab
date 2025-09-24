@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
 // });
 
 Route::resource('blabs', BlabController::class)
-    ->only(['index', 'store']);
-    // ->middleware(['auth', 'verified']);
+    ->only(['index', 'store'])
+    ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
