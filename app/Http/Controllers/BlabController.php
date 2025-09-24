@@ -15,7 +15,8 @@ class BlabController extends Controller
      */
     public function index(): View
     {
-        return view('blabs.index');
+        // $blabs = Blab::all();
+        return view('blabs.index', ['blabs' => Blab::with('user')->latest()->get()]);
     }
 
     /**
