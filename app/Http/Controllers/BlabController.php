@@ -54,7 +54,7 @@ class BlabController extends Controller
      */
     public function edit(Blab $blab)
     {
-        
+        dd('sei nel metodo edit del Blab Controller');
     }
 
     /**
