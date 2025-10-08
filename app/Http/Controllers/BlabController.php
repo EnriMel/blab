@@ -8,6 +8,7 @@ use Illuminate\View\View;
 use Symfony\Contracts\Service\Attribute\Required;
 use Illuminate\Http\RedirectResponse;
 
+
 class BlabController extends Controller
 {
     /**
@@ -52,9 +53,9 @@ class BlabController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Blab $blab)
+    public function edit(Blab $blab): View
     {
-        dd('sei nel metodo edit del Blab Controller');
+        return view('blabs.edit', ['blab' => $blab]);
     }
 
     /**
@@ -62,7 +63,7 @@ class BlabController extends Controller
      */
     public function update(Request $request, Blab $blab)
     {
-        
+        dd('sei nel metodo update del Blab Controller');
     }
 
     /**
