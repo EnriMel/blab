@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blab;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Symfony\Contracts\Service\Attribute\Required;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\RedirectResponse;
+use Symfony\Contracts\Service\Attribute\Required;
 
 
 class BlabController extends Controller
@@ -55,15 +56,26 @@ class BlabController extends Controller
      */
     public function edit(Blab $blab): View
     {
+        // Let's verify that the currently logged in user is authorized to update this specific blab.
+        Gate::authorize('update', $blab);
+
         return view('blabs.edit', ['blab' => $blab]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Blab $blab)
+    public function update(Request $request, Blab $blab): RedirectResponse
     {
-        dd('sei nel metodo update del Blab Controller');
+        Gate::authorize('update', $blab);
+
+        $validated = $request->validate([
+            'message' => 'required|string|max:255'
+        ]);
+
+        $blab->update($validated);
+
+        return redirect(route('blabs.index'));
     }
 
     /**

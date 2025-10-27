@@ -10,7 +10,6 @@
                 <x-primary-button>{{ __('Salva') }}</x-primary-button>
                 <a href="{{ route('blabs.index') }}">{{ __('Cancel') }}</a>
             </div>
-
         </form>
     </div>
 </x-app-layout>

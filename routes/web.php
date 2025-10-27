@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
 
 // all blabs and store new blab
 Route::resource('blabs', BlabController::class)
-    ->only(['index', 'store', 'edit', 'update'])
+    ->only(['index', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 
