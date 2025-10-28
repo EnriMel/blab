@@ -81,8 +81,10 @@ class BlabController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Blab $blab)
+    public function destroy(Blab $blab): RedirectResponse
     {
-        
+        Gate::authorize('delete', $blab);
+        $blab->delete();
+        return redirect(route('blabs.index'));
     }
 }

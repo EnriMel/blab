@@ -37,7 +37,7 @@ class BlabPolicy
      */
     public function update(User $user, Blab $blab): bool
     {
-        // let's verify that the author of the blas is the authenticated user
+        // let's verify that the author of the blab is the authenticated user
         return $blab->user()->is($user);
     }
 
@@ -46,7 +46,8 @@ class BlabPolicy
      */
     public function delete(User $user, Blab $blab): bool
     {
-        return false;
+        // let's verify that the author of the blab is the authenticated user
+        return $this->update($user, $blab);
     }
 
     /**
