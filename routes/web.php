@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlabController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OpenAISuggestionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,5 +29,8 @@ Route::resource('blabs', BlabController::class)
     ->only(['index', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
+
+// suggests with gpt
+Route::post('/blabs/suggest', [OpenAISuggestionController::class, 'suggestBlabs'])->middleware(['auth', 'verified'])->name('blabs.suggest');
 
 require __DIR__.'/auth.php';
