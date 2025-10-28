@@ -2,10 +2,14 @@
    <div class="mx-auto max-w-2xl p-4 sm:p-6 lg:p-8">
       <form method="POST" action="{{ route('blabs.store') }}">
          @csrf
-         <textarea name="message" id="" cols="30" rows="10" placeholder="{{ __('What are you thinking?') }}"
+         <textarea rows=5 id="blab-message" name="message" id="" cols="30" rows="10"
+            placeholder="{{ __('What are you thinking?') }}"
             class="block w-full rounded border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">{{ old('message') }}</textarea>
          <x-input-error :messages="$errors->get('message')" class="mt-2"></x-input-error>
          <x-primary-button class="mt-2">{{ __('Pubblica') }}</x-primary-button>
+         <x-secondary-button id="suggest-blab" class="mt-2">{{ __('Suggerimento') }}
+
+         </x-secondary-button>
       </form>
       <div class="mt-6 divide-y rounded-lg bg-white shadow-sm">
          @foreach ($blabs as $blab)
@@ -60,3 +64,43 @@
       </div>
    </div>
 </x-app-layout>
+
+<script>
+   document.getElementById('suggest-blab').addEventListener('click', async () => {
+      const textarea = document.getElementById('blab-message');
+      const blab = textarea.value;
+      if (!blab.trim()) {
+         alert('Per favore scrivi qualcosa!');
+         return
+      }
+      try {
+         console.log('Sending request...');
+         // effettuiamo la richiesta alla rotta
+         const response = await fetch("{{ route('blabs.suggest') }}", {
+            method: "POST",
+            headers: {
+               'Content-Type': 'application/json',
+               "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            },
+            body: JSON.stringify({
+               blab
+            })
+         });
+         console.log("Richiesta inviata!", response);
+
+         // inseriamo dinamicamente la risposta nella textarea
+         const data = await response.json();
+
+         // se è andato tutto bene sostituisco il contenuto della textarea con
+         // il suggerimento del chatbot
+         if (data.suggestion) {
+            textarea.value = data.suggestion;
+         } else {
+            alert('Nessun suggerimento ricevuto.');
+         }
+      } catch (error) {
+         console.error('Error fetching suggestion: ', error);
+         alert('Qualcosa è andato storto');
+      }
+   });
+</script>
